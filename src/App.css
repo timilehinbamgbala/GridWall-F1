@@ -2672,15 +2672,15 @@
 
 .dr-card-header {
   position: relative;
-  height: 120px;
+  height: 140px;
   overflow: hidden;
   background: rgba(245, 242, 238, 0.03);
 }
 .dr-card-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
+  object-fit: cover;
+  object-position: center 8%;
   background: transparent;
 }
 .dr-card-pos {

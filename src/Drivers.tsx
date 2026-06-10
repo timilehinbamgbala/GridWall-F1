@@ -53,89 +53,68 @@ const FLAG_URL = (nat: string) => {
   return `https://flagcdn.com/24x18/${map[nat] ?? "un"}.png`;
 };
 
+const CDN =
+  "https://media.formula1.com/image/upload/c_lfill,w_400/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026";
+
 const DRIVER_IMGS: Record<string, string> = {
-  antonelli:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ANDANT01_Andrea_Kimi_Antonelli/andant01.png.transform/2col/image.png",
-  kimi_antonelli:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ANDANT01_Andrea_Kimi_Antonelli/andant01.png.transform/2col/image.png",
-  hamilton:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col/image.png",
-  leclerc:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png",
-  russell:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col/image.png",
-  norris:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col/image.png",
-  piastri:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/2col/image.png",
-  max_verstappen:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png",
-  verstappen:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png",
-  gasly:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png.transform/2col/image.png",
-  hadjar:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/I/ISAHAD01_Isack_Hadjar/isahad01.png.transform/2col/image.png",
-  isack_hadjar:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/I/ISAHAD01_Isack_Hadjar/isahad01.png.transform/2col/image.png",
-  colapinto:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FRACOL01_Franco_Colapinto/fracol01.png.transform/2col/image.png",
-  franco_colapinto:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FRACOL01_Franco_Colapinto/fracol01.png.transform/2col/image.png",
-  sainz:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col/image.png",
-  lawson:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LIALAW01_Liam_Lawson/lialaw01.png.transform/2col/image.png",
-  liam_lawson:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LIALAW01_Liam_Lawson/lialaw01.png.transform/2col/image.png",
-  bearman:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OLIBEA01_Oliver_Bearman/olibea01.png.transform/2col/image.png",
-  oliver_bearman:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OLIBEA01_Oliver_Bearman/olibea01.png.transform/2col/image.png",
-  bortoleto:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GABBOR01_Gabriel_Bortoleto/gabbor01.png.transform/2col/image.png",
-  hulkenberg:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png.transform/2col/image.png",
-  ocon: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png.transform/2col/image.png",
-  albon:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/2col/image.png",
-  stroll:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/2col/image.png",
-  alonso:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/2col/image.png",
-  bottas:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png.transform/2col/image.png",
-  perez:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/2col/image.png",
-  lindblad:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ARVLIN01_Arvid_Lindblad/arvlin01.png.transform/2col/image.png",
-  arvid_lindblad:
-    "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ARVLIN01_Arvid_Lindblad/arvlin01.png.transform/2col/image.png",
+  antonelli: `${CDN}/mercedes/andant01/2026mercedesandant01right.webp`,
+  kimi_antonelli: `${CDN}/mercedes/andant01/2026mercedesandant01right.webp`,
+  hamilton: `${CDN}/ferrari/lewham01/2026ferrarilewham01right.webp`,
+  leclerc: `${CDN}/ferrari/chalec01/2026ferrarichalec01right.webp`,
+  russell: `${CDN}/mercedes/georus01/2026mercedesgeorus01right.webp`,
+  norris: `${CDN}/mclaren/lannor01/2026mclarenlannor01right.webp`,
+  piastri: `${CDN}/mclaren/oscpia01/2026mclarenoscpia01right.webp`,
+  max_verstappen: `${CDN}/redbullracing/maxver01/2026redbullracingmaxver01right.webp`,
+  verstappen: `${CDN}/redbullracing/maxver01/2026redbullracingmaxver01right.webp`,
+  gasly: `${CDN}/alpine/piegas01/2026alpinepiegas01right.webp`,
+  hadjar: `${CDN}/redbullracing/isahad01/2026redbullracingisahad01right.webp`,
+  isack_hadjar: `${CDN}/redbullracing/isahad01/2026redbullracingisahad01right.webp`,
+  colapinto: `${CDN}/alpine/fracol01/2026alpinefracol01right.webp`,
+  franco_colapinto: `${CDN}/alpine/fracol01/2026alpinefracol01right.webp`,
+  sainz: `${CDN}/williams/carsai01/2026williamscarsai01right.webp`,
+  lawson: `${CDN}/racingbulls/lialaw01/2026racingbullslialaw01right.webp`,
+  liam_lawson: `${CDN}/racingbulls/lialaw01/2026racingbullslialaw01right.webp`,
+  bearman: `${CDN}/haasf1team/olibea01/2026haasf1teamolibea01right.webp`,
+  oliver_bearman: `${CDN}/haasf1team/olibea01/2026haasf1teamolibea01right.webp`,
+  bortoleto: `${CDN}/audi/gabbor01/2026audigabbor01right.webp`,
+  gabriel_bortoleto: `${CDN}/audi/gabbor01/2026audigabbor01right.webp`,
+  hulkenberg: `${CDN}/audi/nichul01/2026audinichul01right.webp`,
+  nico_hulkenberg: `${CDN}/audi/nichul01/2026audinichul01right.webp`,
+  ocon: `${CDN}/haasf1team/estoco01/2026haasf1teamestoco01right.webp`,
+  albon: `${CDN}/williams/alealb01/2026williamsalealb01right.webp`,
+  stroll: `${CDN}/astonmartin/lanstr01/2026astonmartinlanstr01right.webp`,
+  alonso: `${CDN}/astonmartin/feralo01/2026astonmartinferalo01right.webp`,
+  bottas: `${CDN}/cadillac/valbot01/2026cadillacvalbot01right.webp`,
+  valtteri_bottas: `${CDN}/cadillac/valbot01/2026cadillacvalbot01right.webp`,
+  perez: `${CDN}/cadillac/serper01/2026cadillacserper01right.webp`,
+  sergio_perez: `${CDN}/cadillac/serper01/2026cadillacserper01right.webp`,
+  lindblad: `${CDN}/racingbulls/arvlin01/2026racingbullsarvlin01right.webp`,
+  arvid_lindblad: `${CDN}/racingbulls/arvlin01/2026racingbullsarvlin01right.webp`,
 };
 
 const DRIVER_IMGS_BY_CODE: Record<string, string> = {
-  ANT: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ANDANT01_Andrea_Kimi_Antonelli/andant01.png.transform/2col/image.png",
-  HAM: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col/image.png",
-  LEC: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png",
-  RUS: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col/image.png",
-  NOR: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col/image.png",
-  PIA: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/2col/image.png",
-  VER: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png",
-  GAS: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png.transform/2col/image.png",
-  HAD: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/I/ISAHAD01_Isack_Hadjar/isahad01.png.transform/2col/image.png",
-  COL: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FRACOL01_Franco_Colapinto/fracol01.png.transform/2col/image.png",
-  SAI: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col/image.png",
-  LAW: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LIALAW01_Liam_Lawson/lialaw01.png.transform/2col/image.png",
-  BEA: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OLIBEA01_Oliver_Bearman/olibea01.png.transform/2col/image.png",
-  BOR: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GABBOR01_Gabriel_Bortoleto/gabbor01.png.transform/2col/image.png",
-  HUL: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png.transform/2col/image.png",
-  OCO: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png.transform/2col/image.png",
-  ALB: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/2col/image.png",
-  STR: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/2col/image.png",
-  ALO: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/2col/image.png",
-  BOT: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png.transform/2col/image.png",
-  PER: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/2col/image.png",
-  LIN: "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ARVLIN01_Arvid_Lindblad/arvlin01.png.transform/2col/image.png",
+  ANT: `${CDN}/mercedes/andant01/2026mercedesandant01right.webp`,
+  HAM: `${CDN}/ferrari/lewham01/2026ferrarilewham01right.webp`,
+  LEC: `${CDN}/ferrari/chalec01/2026ferrarichalec01right.webp`,
+  RUS: `${CDN}/mercedes/georus01/2026mercedesgeorus01right.webp`,
+  NOR: `${CDN}/mclaren/lannor01/2026mclarenlannor01right.webp`,
+  PIA: `${CDN}/mclaren/oscpia01/2026mclarenoscpia01right.webp`,
+  VER: `${CDN}/redbullracing/maxver01/2026redbullracingmaxver01right.webp`,
+  GAS: `${CDN}/alpine/piegas01/2026alpinepiegas01right.webp`,
+  HAD: `${CDN}/redbullracing/isahad01/2026redbullracingisahad01right.webp`,
+  COL: `${CDN}/alpine/fracol01/2026alpinefracol01right.webp`,
+  SAI: `${CDN}/williams/carsai01/2026williamscarsai01right.webp`,
+  LAW: `${CDN}/racingbulls/lialaw01/2026racingbullslialaw01right.webp`,
+  BEA: `${CDN}/haasf1team/olibea01/2026haasf1teamolibea01right.webp`,
+  BOR: `${CDN}/audi/gabbor01/2026audigabbor01right.webp`,
+  HUL: `${CDN}/audi/nichul01/2026audinichul01right.webp`,
+  OCO: `${CDN}/haasf1team/estoco01/2026haasf1teamestoco01right.webp`,
+  ALB: `${CDN}/williams/alealb01/2026williamsalealb01right.webp`,
+  STR: `${CDN}/astonmartin/lanstr01/2026astonmartinlanstr01right.webp`,
+  ALO: `${CDN}/astonmartin/feralo01/2026astonmartinferalo01right.webp`,
+  BOT: `${CDN}/cadillac/valbot01/2026cadillacvalbot01right.webp`,
+  PER: `${CDN}/cadillac/serper01/2026cadillacserper01right.webp`,
+  LIN: `${CDN}/racingbulls/arvlin01/2026racingbullsarvlin01right.webp`,
 };
 
 function getDriverImg(driverId: string, code: string): string {
@@ -209,7 +188,18 @@ function DriverCard({
     driver.Constructors[0]?.constructorId ?? ""
   );
   const color = teamColor(cId);
-  const teamName = driver.Constructors[0]?.name ?? "";
+  const rawTeamName = driver.Constructors[0]?.name ?? "";
+  // Normalise legacy names that the API still returns
+  const TEAM_NAME_MAP: Record<string, string> = {
+    "Kick Sauber": "Audi",
+    Sauber: "Audi",
+    "Alfa Romeo": "Audi",
+    Andretti: "Cadillac",
+    "Haas F1 Team": "Haas",
+    "RB F1 Team": "Racing Bulls",
+    "Visa Cash App RB": "Racing Bulls",
+  };
+  const teamName = TEAM_NAME_MAP[rawTeamName] ?? rawTeamName;
   const podiums = allRaces.filter((r) => {
     const res = r.Results?.find(
       (x) => x.Driver.driverId === driver.Driver.driverId
