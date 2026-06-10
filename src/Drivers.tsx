@@ -7,8 +7,8 @@ import {
   getAllResults,
   teamColor,
   normalizeConstructorId,
-  type DriverStanding,
-  type Race,
+  DriverStanding,
+  Race,
 } from "./f1api";
 
 const INVERT_IDS = [

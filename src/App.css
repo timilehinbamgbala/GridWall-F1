@@ -101,7 +101,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("/F11.jpg");
+  background-image: url("../public/F11.jpg");
   background-size: cover;
   background-position: center 40%;
   background-repeat: no-repeat;
@@ -872,7 +872,7 @@
 .rc-header-bg {
   position: absolute;
   inset: 0;
-  background-image: url("/Ferrari F10.jpg");
+  background-image: url("../public/F10.jpg");
   background-size: cover;
   background-position: center 35%;
   background-repeat: no-repeat;
@@ -1122,7 +1122,7 @@
   border-top: none;
 }
 .rc-strategy-row:hover {
-  background: rgba(245,242,238,0.02);
+  background: rgba(245, 242, 238, 0.02);
 }
 
 .rc-strategy-abbr {
@@ -1138,7 +1138,7 @@
 .rc-strategy-track {
   position: relative;
   height: 28px;
-  background: rgba(245,242,238,0.04);
+  background: rgba(245, 242, 238, 0.04);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -1156,7 +1156,7 @@
   min-width: 14px;
   padding: 0 3px;
   box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 .rc-stint-bar:hover {
   opacity: 0.85;
@@ -1167,12 +1167,11 @@
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 700;
-  color: rgba(0,0,0,0.75);
+  color: rgba(0, 0, 0, 0.75);
   letter-spacing: 0.5px;
   pointer-events: none;
   user-select: none;
-  text-shadow: 0 0 3px rgba(255,255,255,0.3);
-}
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
 .rc-pit-marker {
@@ -2525,7 +2524,9 @@
   animation: rl-spin 0.75s linear infinite;
 }
 @keyframes rl-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .rl-state-text {

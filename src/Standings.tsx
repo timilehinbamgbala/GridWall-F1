@@ -6,7 +6,7 @@ import {
   getDriverStandings,
   teamColor,
   normalizeConstructorId,
-  type DriverStanding,
+  DriverStanding,
 } from "./f1api";
 
 const CDN =
@@ -360,7 +360,7 @@ function ConstructorsTable({
                       src={TEAM_IMGS[c.cId] ?? ""}
                       alt={c.name}
                       className={`st-constructor-logo${
-                        INVERT_IDS.includes(c.constructorId) ? " invert" : ""
+                        INVERT_IDS.includes(c.cId) ? " invert" : ""
                       }`}
                       loading="lazy"
                       onError={(e) => {

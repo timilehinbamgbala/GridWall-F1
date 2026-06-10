@@ -8,8 +8,8 @@ import {
   getAllResults,
   teamColor,
   formatRaceDate,
-  type DriverStanding,
-  type Race,
+  DriverStanding,
+  Race,
 } from "./f1api";
 
 const CDN =

@@ -22,8 +22,8 @@ import {
   extractFastestLap,
   formatRaceDate,
   positionText,
-  type Race,
-  type RaceResult,
+  Race,
+  RaceResult,
 } from "./f1api";
 
 const CDN =
