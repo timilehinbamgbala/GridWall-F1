@@ -9,15 +9,76 @@
   --dim: #4a4742;
   --dark: #111010;
   --darker: #0c0b0b;
-
   --border: rgba(245, 242, 238, 0.07);
   --border-mid: rgba(245, 242, 238, 0.14);
-
   --font-display: "Rajdhani", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "Inter", sans-serif;
 }
 
+/* ── Page loader overlay ───────────────────────────────────────────────────── */
+.gw-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.7);
+  -webkit-tap-highlight-color: transparent;
+  animation: gw-overlay-out 0.3s ease 0.6s forwards;
+}
+
+/* Small centered loader */
+.gw-loader-wrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG spinning ring */
+.gw-loader-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  animation: gw-spin 0.9s linear infinite;
+  -webkit-animation: gw-spin 0.9s linear infinite;
+}
+
+.gw-loader-track {
+  fill: none;
+  stroke: rgba(212, 0, 0, 0.25);
+  stroke-width: 3;
+}
+
+.gw-loader-spin {
+  fill: none;
+  stroke: #d40000;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 125.7;
+  stroke-dashoffset: 94;
+}
+
+/* F1 logo inside the ring */
+.gw-loader-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -58,6 +119,24 @@ body {
   color: var(--white);
 }
 
+/* ── Keyframes ─────────────────────────────────────────────────────────────── */
+@keyframes gw-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes gw-spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes gw-overlay-out {
+  to {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
 @keyframes fade-up {
   from {
     opacity: 0;
