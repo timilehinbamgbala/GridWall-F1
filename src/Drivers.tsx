@@ -386,8 +386,16 @@ export default function Drivers() {
   const toggleSelect = (driverId: string) => {
     setSelected((prev) => {
       if (prev.includes(driverId)) return prev.filter((d) => d !== driverId);
-      if (prev.length >= 2) return [prev[1], driverId];
-      return [...prev, driverId];
+      const next = prev.length >= 2 ? [prev[1], driverId] : [...prev, driverId];
+      // scroll to comparison when second driver is selected
+      if (next.length === 2) {
+        setTimeout(() => {
+          document
+            .getElementById("h2h-section")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+      return next;
     });
   };
 
@@ -429,14 +437,19 @@ export default function Drivers() {
 
         {/* head to head panel */}
         {d1 && d2 && (
-          <div className="dr-h2h-section">
+          <div id="h2h-section" className="dr-h2h-section">
             <HeadToHead d1={d1} d2={d2} allRaces={allRaces} />
           </div>
         )}
 
         {!d1 && !d2 && !loading && (
           <div className="dr-select-hint">
-            Tap any two driver cards below to compare
+            Select two drivers to see a head to head comparison
+          </div>
+        )}
+        {d1 && !d2 && (
+          <div className="dr-select-hint">
+            Now select a second driver to compare with {d1.Driver.familyName}
           </div>
         )}
 
