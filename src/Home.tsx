@@ -108,36 +108,42 @@ const FEATURES = [
     title: "Race strategy replay",
     desc: "Visualise every pit stop, tyre compound and undercut attempt.",
     to: "/race",
+    live: true,
   },
   {
     tag: "02",
     title: "Driver head-to-head",
     desc: "Pick any two drivers and break down their season lap by lap.",
     to: "/drivers",
+    live: true,
   },
   {
     tag: "03",
     title: "Prediction league",
     desc: "Lock in your podium before lights out and compete on the leaderboard.",
     to: "/fantasy",
+    live: false,
   },
   {
     tag: "04",
     title: "Real-time timing",
     desc: "Live sector times, gap intervals, and tyre age during every session.",
-    to: "/race",
+    to: "/live",
+    live: false,
   },
   {
     tag: "05",
     title: "Circuit guide",
     desc: "DRS zones, braking points, lap records for all 22 venues.",
     to: "/circuits",
+    live: false,
   },
   {
     tag: "06",
     title: "Fan feed",
     desc: "Hot takes, polls, and post-race debate sorted by race and topic.",
-    to: "/standings",
+    to: "/feed",
+    live: false,
   },
 ];
 
@@ -474,6 +480,7 @@ function FeaturesSection() {
   const navigate = useNavigate();
   return (
     <div
+      id="features-section"
       ref={ref}
       className="pw-features"
       style={{
@@ -493,12 +500,26 @@ function FeaturesSection() {
           {FEATURES.map((f) => (
             <div
               key={f.tag}
-              className="pw-feature-card"
+              className={`pw-feature-card${
+                !f.live ? " pw-feature-card--soon" : ""
+              }`}
               role="listitem"
               onClick={() => navigate(f.to)}
               style={{ cursor: "pointer" }}
             >
-              <span className="pw-feature-icon">{f.tag}</span>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 18,
+                }}
+              >
+                <span className="pw-feature-icon" style={{ marginBottom: 0 }}>
+                  {f.tag}
+                </span>
+                {!f.live && <span className="pw-feature-soon-badge">Soon</span>}
+              </div>
               <h3 className="pw-feature-title">{f.title}</h3>
               <p className="pw-feature-desc">{f.desc}</p>
             </div>
@@ -544,7 +565,11 @@ export default function Home() {
               </button>
               <button
                 className="pw-btn-ghost"
-                onClick={() => navigate("/standings")}
+                onClick={() => {
+                  document
+                    .getElementById("features-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 How it works
               </button>

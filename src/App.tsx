@@ -4,6 +4,7 @@ import Home from "./Home";
 import RaceLive from "./RaceLive";
 import Standings from "./Standings";
 import Drivers from "./Drivers";
+import ComingSoon from "./Comingsoon";
 
 // ── Page loader — shows on every route change ─────────────────────────────────
 function PageLoader() {
@@ -43,6 +44,10 @@ function AppRoutes() {
         <Route path="/race" element={<RaceLive />} />
         <Route path="/standings" element={<Standings />} />
         <Route path="/drivers" element={<Drivers />} />
+        <Route path="/circuits" element={<ComingSoon />} />
+        <Route path="/fantasy" element={<ComingSoon />} />
+        <Route path="/live" element={<ComingSoon />} />
+        <Route path="/feed" element={<ComingSoon />} />
       </Routes>
     </>
   );

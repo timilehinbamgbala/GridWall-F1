@@ -67,7 +67,14 @@ export default function Nav() {
           ))}
         </ul>
 
-        <button className="pw-nav-cta">Join free</button>
+        <a
+          href="https://chat.whatsapp.com/invite/gridwall"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pw-nav-cta"
+        >
+          Join free
+        </a>
       </nav>
 
       {/* overlay */}
@@ -123,12 +130,20 @@ export default function Nav() {
 
         {/* sidebar footer */}
         <div className="pw-sidebar-footer">
-          <button
+          <a
+            href="https://chat.whatsapp.com/invite/gridwall"
+            target="_blank"
+            rel="noopener noreferrer"
             className="pw-btn-primary"
-            style={{ width: "100%", textAlign: "center" }}
+            style={{
+              width: "100%",
+              textAlign: "center",
+              display: "block",
+              textDecoration: "none",
+            }}
           >
             Join free
-          </button>
+          </a>
           <div className="pw-sidebar-footer-copy">
             Not affiliated with Formula One Group
           </div>
