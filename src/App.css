@@ -1639,6 +1639,12 @@
   .st-col-nat {
     display: none;
   }
+  .st-pts-bar-wrap {
+    display: none;
+  }
+  .st-pts-cell {
+    justify-content: flex-end;
+  }
 }
 @media (max-width: 640px) {
   .st-header-inner {
@@ -1660,19 +1666,47 @@
   .st-col-team {
     display: none;
   }
+  .st-col-nat {
+    display: none;
+  }
   .st-col-wins {
     display: none;
   }
   .st-pts-bar-wrap {
-    max-width: 80px;
+    display: none;
+  }
+  .st-pts-cell {
+    justify-content: flex-end;
+  }
+  .st-pts-num {
+    font-size: 16px;
+    min-width: unset;
   }
   .st-driver-img {
     width: 32px;
     height: 32px;
   }
+  .st-driver-name {
+    font-size: 12px;
+  }
   .st-tab {
     padding: 10px 14px;
     font-size: 10px;
+  }
+  /* make table fit width exactly */
+  .st-table {
+    width: 100%;
+    min-width: unset;
+  }
+  .st-table-wrap {
+    overflow-x: unset;
+  }
+  .pw-pos {
+    font-size: 14px;
+    min-width: 22px;
+  }
+  .st-team-stripe {
+    height: 30px;
   }
 }
 
