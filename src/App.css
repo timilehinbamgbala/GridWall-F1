@@ -2962,7 +2962,9 @@
   border-radius: 4px;
   opacity: 0.9;
 }
-.cs-text { flex: 1; }
+.cs-text {
+  flex: 1;
+}
 .cs-label {
   font-family: var(--font-mono);
   font-size: 10px;
