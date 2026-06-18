@@ -6,7 +6,6 @@ import Standings from "./Standings";
 import Drivers from "./Drivers";
 import ComingSoon from "./Comingsoon";
 
-// ── Page loader — shows on every route change ─────────────────────────────────
 function PageLoader() {
   const location = useLocation();
   const [visible, setVisible] = useState(true);
