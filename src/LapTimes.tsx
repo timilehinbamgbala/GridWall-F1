@@ -14,6 +14,40 @@ import { normalizeConstructorId, teamColor } from "./f1api";
 
 const OPENF1 = "https://api.openf1.org/v1";
 
+// ── 2026 driver headshots — same F1 media CDN pattern used on the Race page,
+// keyed by the 3-letter acronym OpenF1 gives us (name_acronym) so we don't
+// depend on OpenF1's own (often stale) headshot_url. ──────────────────────
+const CDN =
+  "https://media.formula1.com/image/upload/c_lfill,w_64/q_auto/v1740000001/common/f1/2026";
+const ACRONYM_DRIVER_IMG: Record<string, string> = {
+  ANT: "mercedes/andant01/2026mercedesandant01right.webp",
+  HAM: "ferrari/lewham01/2026ferrarilewham01right.webp",
+  LEC: "ferrari/chalec01/2026ferrarichalec01right.webp",
+  VER: "redbullracing/maxver01/2026redbullracingmaxver01right.webp",
+  HAD: "redbullracing/isahad01/2026redbullracingisahad01right.webp",
+  COL: "alpine/fracol01/2026alpinefracol01right.webp",
+  LAW: "racingbulls/lialaw01/2026racingbullslialaw01right.webp",
+  GAS: "alpine/piegas01/2026alpinepiegas01right.webp",
+  SAI: "williams/carsai01/2026williamscarsai01right.webp",
+  BEA: "haasf1team/olibea01/2026haasf1teamolibea01right.webp",
+  PIA: "mclaren/oscpia01/2026mclarenoscpia01right.webp",
+  HUL: "audi/nichul01/2026audinichul01right.webp",
+  BOR: "audi/gabbor01/2026audigabbor01right.webp",
+  OCO: "haasf1team/estoco01/2026haasf1teamestoco01right.webp",
+  STR: "astonmartin/lanstr01/2026astonmartinlanstr01right.webp",
+  BOT: "cadillac/valbot01/2026cadillacvalbot01right.webp",
+  PER: "cadillac/serper01/2026cadillacserper01right.webp",
+  NOR: "mclaren/lannor01/2026mclarenlannor01right.webp",
+  RUS: "mercedes/georus01/2026mercedesgeorus01right.webp",
+  ALO: "astonmartin/feralo01/2026astonmartinferalo01right.webp",
+  ALB: "williams/alealb01/2026williamsalealb01right.webp",
+  LIN: "racingbulls/arvlin01/2026racingbullsarvlin01right.webp",
+};
+function driverHeadshot(acronym: string): string | undefined {
+  const path = ACRONYM_DRIVER_IMG[(acronym || "").toUpperCase()];
+  return path ? `${CDN}/${path}` : undefined;
+}
+
 // ── Tyre compound colours (kept in sync with RaceLive.tsx) ───────────────────
 const COMPOUND_COLOR: Record<string, string> = {
   SOFT: "#E8002D",
@@ -298,9 +332,9 @@ function DriverPanel({
         <span className="lt-panel-number" style={{ color: accent }}>
           {driver.driver_number}
         </span>
-        {driver.headshot_url && (
+        {(driverHeadshot(driver.name_acronym) || driver.headshot_url) && (
           <img
-            src={driver.headshot_url}
+            src={driverHeadshot(driver.name_acronym) || driver.headshot_url}
             alt=""
             className="lt-panel-headshot"
             onError={(e) => {
