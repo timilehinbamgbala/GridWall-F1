@@ -181,11 +181,13 @@ function StintBlock({
   laps,
   pitLapSet,
   pitDurations,
+  hadRealStop,
 }: {
   stint: Stint | null;
   laps: Lap[];
   pitLapSet: Set<number>;
   pitDurations: Record<number, number>;
+  hadRealStop: boolean;
 }) {
   if (!laps.length) return null;
   const compound = stint?.compound ?? "UNKNOWN";
@@ -211,6 +213,9 @@ function StintBlock({
             Laps {stint.lap_start}–{stint.lap_end}
             {stint.tyre_age_at_start > 0 &&
               ` · started on lap ${stint.tyre_age_at_start}-old tyres`}
+            {stint.stint_number > 1 &&
+              !hadRealStop &&
+              " · no pit stop — tyre change under red flag/stoppage"}
           </span>
         )}
       </div>
@@ -284,47 +289,63 @@ function DriverPanel({
   );
   const accent = driver.team_colour ? `#${driver.team_colour}` : teamColor(teamId);
 
+  // De-dupe /pit entries by lap number — OpenF1 occasionally returns more
+  // than one row for the same physical stop.
+  const dedupedPits = useMemo(() => {
+    const byLap = new Map<number, PitStop>();
+    pits.forEach((p) => byLap.set(p.lap_number, p));
+    return Array.from(byLap.values());
+  }, [pits]);
+
   const pitLapSet = useMemo(
-    () => new Set(pits.map((p) => p.lap_number)),
-    [pits]
+    () => new Set(dedupedPits.map((p) => p.lap_number)),
+    [dedupedPits]
   );
   const pitDurations = useMemo(() => {
     const m: Record<number, number> = {};
-    pits.forEach((p) => {
+    dedupedPits.forEach((p) => {
       if (p.pit_duration != null) m[p.lap_number] = p.pit_duration;
     });
     return m;
-  }, [pits]);
+  }, [dedupedPits]);
 
   // Group laps by stint using lap_start/lap_end ranges. Stint numbering
-  // resets after red flags/restarts, so we key groups by stint_number in
-  // order rather than assuming a strictly increasing lap range.
+  // resets after red flags/restarts — and OpenF1 also bumps stint_number
+  // for a tyre change made during a red flag/stoppage even when the car
+  // never passed through the pit lane, so a stint boundary is only a real
+  // pit stop when a matching /pit entry exists at or near that lap.
   const groups = useMemo(() => {
     const sortedStints = [...stints].sort((a, b) => a.lap_start - b.lap_start);
     if (!sortedStints.length) {
       // Driver with no stint data at all — show every lap ungrouped.
-      return [{ stint: null as Stint | null, laps }];
+      return [{ stint: null as Stint | null, laps, hadRealStop: true }];
     }
-    const out: { stint: Stint | null; laps: Lap[] }[] = [];
+    const out: { stint: Stint | null; laps: Lap[]; hadRealStop: boolean }[] = [];
     sortedStints.forEach((stint) => {
       const inRange = laps.filter(
         (l) => l.lap_number >= stint.lap_start && l.lap_number <= stint.lap_end
       );
-      out.push({ stint, laps: inRange });
+      // A real pit stop for this stint shows up as a /pit entry on the lap
+      // just before this stint started (±1 lap for OpenF1 timing jitter).
+      const hadRealStop = dedupedPits.some(
+        (p) => Math.abs(p.lap_number - (stint.lap_start - 1)) <= 1
+      );
+      out.push({ stint, laps: inRange, hadRealStop });
     });
     // Any laps not covered by a stint window (e.g. a driver who never
     // registered a pit stop, or a gap around a red flag) get their own
     // trailing/leading group so no lap silently disappears.
     const covered = new Set(out.flatMap((g) => g.laps.map((l) => l.lap_number)));
     const leftover = laps.filter((l) => !covered.has(l.lap_number));
-    if (leftover.length) out.push({ stint: null, laps: leftover });
+    if (leftover.length) out.push({ stint: null, laps: leftover, hadRealStop: true });
     return out.filter((g) => g.laps.length);
-  }, [stints, laps]);
+  }, [stints, laps, dedupedPits]);
 
   const validLaps = laps.filter((l) => l.lap_duration != null);
   const fastest = validLaps.length
     ? Math.min(...validLaps.map((l) => l.lap_duration as number))
     : null;
+  const realPitStops = dedupedPits.length;
 
   return (
     <div
@@ -382,6 +403,7 @@ function DriverPanel({
         <span className="lt-panel-meta" style={{ flexShrink: 0 }}>
           {laps.length} laps
           {fastest != null && ` · best ${fmtLapTime(fastest)}`}
+          {` · ${realPitStops} pit stop${realPitStops === 1 ? "" : "s"}`}
         </span>
         <span className={`lt-panel-chevron${open ? " open" : ""}`}>▾</span>
       </button>
@@ -394,6 +416,7 @@ function DriverPanel({
               laps={g.laps}
               pitLapSet={pitLapSet}
               pitDurations={pitDurations}
+              hadRealStop={g.hadRealStop}
             />
           ))}
         </div>
