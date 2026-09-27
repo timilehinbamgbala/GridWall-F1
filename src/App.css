@@ -3115,15 +3115,21 @@
   min-width: 32px;
   flex-shrink: 0;
 }
-.lt-panel-headshot {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top center;
+.lt-headshot-wrap {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 8px;
+  overflow: hidden;
   background: var(--darker);
   flex-shrink: 0;
+}
+.lt-panel-headshot {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.9) translateY(6%);
+  transform-origin: top center;
 }
 .lt-panel-name {
   font-weight: 600;
