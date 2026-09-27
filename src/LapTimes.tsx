@@ -573,6 +573,26 @@ export default function LapTimes() {
 
         {!loading && !error && drivers.length > 0 && (
           <section className="rc-section" style={{ maxWidth: "1600px", width: "100%" }}>
+            {stints.length === 0 && (
+              <div
+                className="lt-data-notice"
+                style={{
+                  padding: "12px 16px",
+                  marginBottom: 16,
+                  borderRadius: 8,
+                  border: "1px solid rgba(212, 0, 0, 0.3)",
+                  background: "rgba(212, 0, 0, 0.08)",
+                  color: "#e8e4de",
+                  fontSize: 13,
+                  lineHeight: 1.5,
+                }}
+              >
+                Tyre stint and pit-stop data hasn't been published by OpenF1 for
+                this session yet — it typically lags lap times by longer than
+                the timing sheet itself. Lap times and sectors below are
+                complete; stint grouping will appear once it's available.
+              </div>
+            )}
             <div className="lt-legend">
               <span className="lt-legend-item">
                 <span className="lt-legend-swatch lt-row-cancelled" /> Cancelled /
