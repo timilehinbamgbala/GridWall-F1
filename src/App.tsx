@@ -5,6 +5,7 @@ import RaceLive from "./RaceLive";
 import Standings from "./Standings";
 import Drivers from "./Drivers";
 import ComingSoon from "./Comingsoon";
+import LapTimes from "./LapTimes";
 
 function PageLoader() {
   const location = useLocation();
@@ -45,7 +46,7 @@ function AppRoutes() {
         <Route path="/drivers" element={<Drivers />} />
         <Route path="/circuits" element={<ComingSoon />} />
         <Route path="/fantasy" element={<ComingSoon />} />
-        <Route path="/live" element={<ComingSoon />} />
+        <Route path="/live" element={<LapTimes />} />
         <Route path="/feed" element={<ComingSoon />} />
       </Routes>
     </>
