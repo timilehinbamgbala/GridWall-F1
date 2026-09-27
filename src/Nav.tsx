@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { label: "Race", to: "/race", icon: "R" },
   { label: "Standings", to: "/standings", icon: "S" },
   { label: "Drivers", to: "/drivers", icon: "D" },
+  { label: "Lap Times", to: "/live", icon: "L" },
   { label: "Circuits", to: "/circuits", icon: "C" },
   { label: "Fantasy", to: "/fantasy", icon: "F" },
 ];
