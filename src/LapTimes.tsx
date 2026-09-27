@@ -214,7 +214,7 @@ function StintBlock({
           </span>
         )}
       </div>
-      <table className="lt-lap-table">
+      <table className="lt-lap-table" style={{ width: "100%", tableLayout: "auto" }}>
         <thead>
           <tr>
             <th className="lt-col-lap">Lap</th>
@@ -327,31 +327,66 @@ function DriverPanel({
     : null;
 
   return (
-    <div className="lt-panel" style={{ borderLeftColor: accent }}>
-      <button className="lt-panel-header" onClick={onToggle}>
-        <span className="lt-panel-number" style={{ color: accent }}>
+    <div
+      className="lt-panel"
+      style={{ borderLeft: `3px solid ${accent}`, width: "100%" }}
+    >
+      <button
+        className="lt-panel-header"
+        onClick={onToggle}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: 14,
+        }}
+      >
+        <span className="lt-panel-number" style={{ color: accent, flexShrink: 0 }}>
           {driver.driver_number}
         </span>
         {(driverHeadshot(driver.name_acronym) || driver.headshot_url) && (
-          <img
-            src={driverHeadshot(driver.name_acronym) || driver.headshot_url}
-            alt=""
-            className="lt-panel-headshot"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
+          <div
+            className="lt-headshot-wrap"
+            style={{
+              width: 46,
+              height: 46,
+              minWidth: 46,
+              borderRadius: 8,
+              overflow: "hidden",
+              background: "#0c0b0b",
+              flexShrink: 0,
             }}
-          />
+          >
+            <img
+              src={driverHeadshot(driver.name_acronym) || driver.headshot_url}
+              alt=""
+              className="lt-panel-headshot"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+                transform: "scale(1.9) translateY(6%)",
+                transformOrigin: "top center",
+              }}
+              onError={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.parentElement) img.parentElement.style.display = "none";
+              }}
+            />
+          </div>
         )}
-        <span className="lt-panel-name">{driver.full_name}</span>
-        <span className="lt-panel-team">{driver.team_name}</span>
-        <span className="lt-panel-meta">
+        <span className="lt-panel-name" style={{ flexShrink: 0 }}>
+          {driver.full_name}
+        </span>
+        <span className="lt-panel-team" style={{ flex: 1 }}>{driver.team_name}</span>
+        <span className="lt-panel-meta" style={{ flexShrink: 0 }}>
           {laps.length} laps
           {fastest != null && ` · best ${fmtLapTime(fastest)}`}
         </span>
         <span className={`lt-panel-chevron${open ? " open" : ""}`}>▾</span>
       </button>
       {open && (
-        <div className="lt-panel-body">
+        <div className="lt-panel-body" style={{ width: "100%" }}>
           {groups.map((g, i) => (
             <StintBlock
               key={g.stint ? `s${g.stint.stint_number}` : `u${i}`}
@@ -514,7 +549,7 @@ export default function LapTimes() {
         )}
 
         {!loading && !error && drivers.length > 0 && (
-          <section className="rc-section">
+          <section className="rc-section" style={{ maxWidth: "1600px", width: "100%" }}>
             <div className="lt-legend">
               <span className="lt-legend-item">
                 <span className="lt-legend-swatch lt-row-cancelled" /> Cancelled /
@@ -524,7 +559,7 @@ export default function LapTimes() {
                 <span className="lt-pit-badge">PIT</span> Pit stop this lap
               </span>
             </div>
-            <div className="lt-panel-list">
+            <div className="lt-panel-list" style={{ width: "100%" }}>
               {drivers.map((d) => (
                 <DriverPanel
                   key={d.driver_number}
